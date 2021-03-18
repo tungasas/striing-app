@@ -1,15 +1,34 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+
+const app = express();
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Init Middleware
+app.use(express.json());
 
 mongoose.connect(
   "mongodb+srv://tung:tungkon97@cluster0.ml0wd.mongodb.net/striingDB?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
-// Init Middleware
-app.use(express.json());
+// Passport Strategy
+passport.use(User.createStrategy());
+// Enable Passport session
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));

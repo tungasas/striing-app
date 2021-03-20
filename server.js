@@ -19,19 +19,17 @@ app.use(passport.session());
 // Init Middleware
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb+srv://tung:tungkon97@cluster0.ml0wd.mongodb.net/striingDB?retryWrites=true&w=majority",
-  { useNewUrlParser: true, useUnifiedTopology: true }
-);
-
-// Passport Strategy
-passport.use(User.createStrategy());
-// Enable Passport session
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+mongoose
+  .connect(
+    `mongodb+srv://tung:${process.env.DBPASS}@cluster0.ml0wd.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`,
+    { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
+  )
+  .then(() => console.log("Database Connected"))
+  .catch((err) => console.log(err));
 
 // Define Routes
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/notes", require("./routes/api/notes"));
 
 const PORT = process.env.PORT || 5000;

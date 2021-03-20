@@ -1,0 +1,12 @@
+export const primary = "#3b68ff";
+export const text = "#2c334d";
+export const base = "#fafcfd";
+export const white = "#fff";
+export const purple = "#cda6fe";
+export const orage = "#ff945c";
+export const blue = "#ff945c";
+export const lightPurple = "#f3e9ff";
+export const lightOrage = "#fff5f0";
+export const lightBlue = "#ebf4ff";
+export const gray10 = "#cdd7eb";
+export const danger = "#ef5350";

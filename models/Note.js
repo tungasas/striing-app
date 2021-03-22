@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const noteSchema = new mongoose.Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
   },
@@ -12,6 +16,18 @@ const noteSchema = new mongoose.Schema({
   },
   color: {
     type: String,
+    default: "#fff",
+  },
+  archived: {
+    type: Boolean,
+    default: false,
+  },
+  trashed: {
+    type: Boolean,
+    default: false,
+  },
+  trashDate: {
+    type: Date,
   },
   updateDate: {
     type: Date,

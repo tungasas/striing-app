@@ -27,4 +27,10 @@ router.post("/", function (req, res) {
   });
 });
 
+// Logout
+router.get("/logout", function (req, res) {
+  req.session.destroy();
+  req.logout();
+});
+
 module.exports = router;

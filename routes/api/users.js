@@ -23,8 +23,4 @@ router.post("/", function (req, res) {
   );
 });
 
-router.post("/lol", function (req, res) {
-  res.send(req.body.name);
-});
-
 module.exports = router;

@@ -7,7 +7,9 @@ function getUser() {
 function login(user) {
   return client("/api/auth", { data: user });
 }
-function logout() {}
+function logout() {
+  return client("/api/auth/logout");
+}
 function register(user) {
   return client("/api/users", { data: user });
 }

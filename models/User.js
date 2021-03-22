@@ -12,6 +12,9 @@ const userSchema = new mongoose.Schema({
     type: String,
     requried: true,
   },
+  name: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

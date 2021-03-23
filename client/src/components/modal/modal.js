@@ -4,18 +4,18 @@ import { css, keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
 import * as colors from "../../styles/colors";
 
-const animModalOverlay = keyframes`
-  from {background-color: none;}
-  to {background-color: rgba(0, 0, 0, 0.6);}
-`;
+// const animModalOverlay = keyframes`
+//   from {background-color: none;}
+//   to {background-color: rgba(0, 0, 0, 0.6);}
+// `;
 
 function ModalUnderlying({ children, ...props }) {
   return (
     <div
       css={{
-        width: "300px",
+        width: "320px",
         maxWidth: "100%",
-        height: "450px",
+        height: "480px",
         maxHeight: "100%",
 
         position: "fixed",

@@ -46,15 +46,17 @@ function useAsync(initialState) {
           `The argument passed to useAsync().run must be a promise. Maybe a function that's passed isn't returning anything?`
         );
       }
+
       setSafeState({ status: "pending" });
+
       return promise
-        .then((data) => {
-          setData(data);
-          return data;
+        .then((res) => {
+          setData(res.data);
+          return res.data;
         })
         .catch((error) => {
-          setError(error);
-          return error;
+          setError(error.response.data);
+          return error.response.data;
         });
     },
     [setSafeState, setData, setError]

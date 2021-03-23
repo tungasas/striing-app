@@ -3,8 +3,7 @@ import * as React from "react";
 import Logo from "./components/logo";
 import * as styles from "./styles/styles";
 import {
-  HomeNavButton,
-  HomeCTAButton,
+  RouterLink,
   Input,
   FormGroup,
   Button,
@@ -64,8 +63,8 @@ function UnauthenticatedApp({ login, register }) {
         <nav css={styles.nav}>
           <Logo />
           <div>
-            <Link to="/login">Log in</Link>
-            <HomeNavButton>Sign up</HomeNavButton>
+            <RouterLink to="/login">Log in</RouterLink>
+            <RouterLink to="/signup">Sign up</RouterLink>
           </div>
         </nav>
         <section css={{ flex: "1" }}>
@@ -77,9 +76,9 @@ function UnauthenticatedApp({ login, register }) {
                   note, to-do list, and more...
                 </span>
               </h1>
-              <HomeCTAButton onClick={() => console.log("get started")}>
+              <RouterLink to="/login" variant="homeCTALink">
                 Get started
-              </HomeCTAButton>
+              </RouterLink>
             </div>
           </div>
         </section>
@@ -90,12 +89,14 @@ function UnauthenticatedApp({ login, register }) {
         <Route path="/login">
           <Modal>
             <ModalUnderlying>
-              <button>X</button>
+              <RouterLink to="/" variant="closeModal">
+                X
+              </RouterLink>
               <ModalGuts>
                 <h2>Log in</h2>
                 <Logo />
                 <p>to save your progress</p>
-                <LoginForm type="Log in" onSubmit={login} />
+                <LoginForm key={"login"} type="Log in" onSubmit={login} />
                 <p>
                   Don't have an account? <Link to="/signup">Sign up</Link>
                 </p>
@@ -106,12 +107,14 @@ function UnauthenticatedApp({ login, register }) {
         <Route path="/signup">
           <Modal>
             <ModalUnderlying>
-              <button>X</button>
+              <RouterLink to="/" variant="closeModal">
+                X
+              </RouterLink>
               <ModalGuts>
                 <h2>Sign up</h2>
                 <Logo />
                 <p>to save your progress</p>
-                <LoginForm type="Sign up" onSubmit={register} />
+                <LoginForm key={"signup"} type="Sign up" onSubmit={register} />
                 <p>
                   Already signed up? <Link to="/login">Go to login</Link>
                 </p>

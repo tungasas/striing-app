@@ -5,18 +5,16 @@ const passport = require("passport");
 const User = require("../../models/User");
 
 // Register user
-router.post("/", function (req, res) {
+router.post("/", function (req, res, next) {
   User.register(
-    { username: req.body.username },
+    new User({ username: req.body.username }),
     req.body.password,
     function (err, user) {
       if (err) {
-        //return Promise.reject({ message: err });
-        res.send({ message: err });
+        return res.status(400).send(err);
       }
 
       passport.authenticate("local")(req, res, function () {
-        //return Promise.resolve(user);
         res.send(user);
       });
     }

@@ -38,13 +38,13 @@ export const content = {
 };
 
 export const heading = {
-  fontSize: "4.5em",
+  fontSize: "4em",
   margin: "0",
 
   [mq.medium]: {
-    fontSize: "3.2em",
+    fontSize: "2.8em",
   },
   [mq.small]: {
-    fontSize: "3em",
+    fontSize: "2.6em",
   },
 };

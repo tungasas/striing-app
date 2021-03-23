@@ -19,7 +19,7 @@ router.get("/", function (req, res) {
   }
 });
 
-// Get note by id
+// Get a note by id
 router.get("/:id", function (req, res) {});
 
 // Create new note
@@ -32,5 +32,14 @@ router.post("/", function (req, res) {
     res.send(null);
   }
 });
+
+// Delete a note by id
+router.delete("/:id", function (req, res) {});
+
+// Delete multiple notes
+router.delete("/", function (req, res) {});
+
+// Update a note by id
+router.put("/", function (req, res) {});
 
 module.exports = router;

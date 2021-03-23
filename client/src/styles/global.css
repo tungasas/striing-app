@@ -9,8 +9,12 @@
 }
 
 body {
-  font-size: 12px;
+  font-size: 14px;
   color: #2c334d;
   background-color: #fafcfd;
   margin: 0;
+}
+
+[contenteditable] {
+  outline: none;
 }

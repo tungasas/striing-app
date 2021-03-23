@@ -13,10 +13,10 @@ function client(endpoint, { data, token, customHeaders, customConfig } = {}) {
     },
     ...customConfig,
   };
-  console.log();
-  return axios(config)
-    .then((res) => res.data)
-    .catch((err) => err);
+
+  return axios(config);
+  // .then((res) => res.data)
+  // .catch((err) => Promise.reject(err.response.data));
 }
 
 export { client };

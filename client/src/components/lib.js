@@ -1,9 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
 import * as colors from "../styles/colors";
 import * as mq from "../styles/media-queries";
 import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const spin = keyframes({
   "0%": { transform: "rotate(0deg)" },
@@ -17,42 +19,6 @@ Spinner.defaultProps = {
   "aria-label": "loading",
 };
 
-const HomeNavButton = styled.button({
-  fontWeight: "400",
-  color: "#2c334d",
-  background: "none",
-  border: "none",
-
-  backgroundImage: "linear-gradient(to right, #3b68ff 0%, #3b68ff)",
-  backgroundOrigin: "content-box",
-  backgroundSize: "0% 4px",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "0% 100%",
-  transition: "background-size 0.2s",
-
-  margin: "0.1em 0 0.5em 0.6em",
-  fontSize: "1.2em",
-  "&:hover": {
-    backgroundSize: "100% 3px",
-  },
-});
-
-const HomeCTAButton = styled.button({
-  backgroundColor: colors.primary,
-  color: "white",
-  border: "none",
-  borderRadius: "5px",
-  fontWeight: "700",
-  padding: "0.7em 1.5em",
-
-  fontSize: "1.2em",
-  marginTop: "3em",
-
-  [mq.large]: {
-    fontSize: "1.5em",
-  },
-});
-
 const Input = styled.input({
   border: "1px solid #f1f1f4",
   background: "#f1f2f7",
@@ -61,6 +27,52 @@ const Input = styled.input({
   margin: "10px 20px",
 });
 
+const inputFormVariants = {
+  title: {
+    padding: "12px 16px",
+    fontSize: "18px",
+    color: colors.title,
+  },
+  content: {
+    padding: "12px 16px",
+    fontSize: "14px",
+  },
+};
+
+function InputForm({ variant }) {
+  const label =
+    variant === "title"
+      ? "Title"
+      : variant === "content"
+      ? "Take a note..."
+      : "";
+
+  return (
+    <div
+      contentEditable="true"
+      css={[
+        css`
+          &:empty::before {
+            content: "${label}";
+            color: gray;
+            cursor: text;
+          }
+        `,
+        inputFormVariants[variant],
+      ]}
+    />
+  );
+}
+
+// styled.input(
+//   {
+//     background: "transparent",
+//     border: "none",
+//     outline: "none",
+//   },
+//   ({ variant = "content" }) => inputFormVariants[variant]
+// );
+
 const FormGroup = styled.div({
   display: "flex",
   flexDirection: "column",
@@ -68,6 +80,8 @@ const FormGroup = styled.div({
 
 const buttonVariants = {
   primary: {
+    padding: "10px 15px",
+    margin: "10px 20px",
     background: colors.primary,
     color: "white",
   },
@@ -75,30 +89,100 @@ const buttonVariants = {
     background: colors.base,
     color: colors.text,
   },
+  transparent: {
+    background: "transparent",
+    position: "absolute",
+    top: "5px",
+    right: "3px",
+    fontWeight: "700",
+    fontSize: "1.2em",
+  },
+  closeNote: {
+    padding: "10px 16px",
+    marginRight: "15px",
+    background: "none",
+    color: colors.title,
+    fontSize: "16px",
+    "&:hover": {
+      background: colors.gray1,
+    },
+  },
 };
 const Button = styled.button(
   {
-    padding: "10px 15px",
-    margin: "10px 20px",
     border: "0",
     lineHeight: "1",
     borderRadius: "3px",
+    color: colors.text,
   },
   ({ variant = "primary" }) => buttonVariants[variant]
 );
 
+const linkVariants = {
+  homeCTALink: {
+    backgroundColor: colors.primary,
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    fontWeight: "700",
+    padding: "0.6em 1.3em",
+    display: "inline-block",
+
+    fontSize: "1.2em",
+    marginTop: "2.6em",
+
+    [mq.large]: {
+      fontSize: "1.3em",
+    },
+  },
+  homeNavLink: {
+    fontWeight: "400",
+    color: "#2c334d",
+    background: "none",
+    border: "none",
+
+    backgroundImage: "linear-gradient(to right, #3b68ff 0%, #3b68ff)",
+    backgroundOrigin: "content-box",
+    backgroundSize: "0% 4px",
+    backgroundRepeat: "no-repeat",
+    backgroundPosition: "0% 100%",
+    transition: "background-size 0.2s",
+
+    margin: "0.1em 0 0.5em 1.1em",
+    fontSize: "1.1em",
+    "&:hover": {
+      backgroundSize: "100% 3px",
+    },
+  },
+  closeModal: {
+    background: "transparent",
+    position: "absolute",
+    top: "0px",
+    right: "3px",
+    fontWeight: "700",
+    fontSize: "1.2em",
+    zIndex: "60",
+    padding: "5px",
+  },
+};
+
+const RouterLink = styled(Link)(
+  { textDecoration: "none" },
+  ({ variant = "homeNavLink" }) => linkVariants[variant]
+);
+
 function ErrorMessage({ error, ...props }) {
   return (
-    <div css={{ color: colors.danger }}>
-      <span>{FaExclamationCircle} </span> {error.message}
+    <div css={{ color: colors.danger, marginBottom: "5px" }}>
+      <span>{FaExclamationCircle} </span> {error.message || error}
     </div>
   );
 }
 
 export {
-  HomeNavButton,
-  HomeCTAButton,
+  RouterLink,
   Input,
+  InputForm,
   FormGroup,
   Button,
   Spinner,

@@ -3,6 +3,7 @@ import AuthenticatedApp from "./authenticated-app";
 import UnauthenticatedApp from "./unauthenticated-app";
 import { useAsync } from "./utils/hooks";
 import * as auth from "./utils/auth-provider";
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   const {
@@ -20,8 +21,16 @@ function App() {
     run(auth.getUser());
   }, [run]);
 
-  const login = (form) => auth.login(form).then((user) => setData(user));
-  const register = (form) => auth.register(form).then((user) => setData(user));
+  const login = (form) =>
+    auth.login(form).then((res) => {
+      setData(res.data);
+      return res;
+    });
+  const register = (form) =>
+    auth.register(form).then((res) => {
+      setData(res.data);
+      return res;
+    });
   const logout = () => {
     auth.logout();
     setData(null);
@@ -36,12 +45,15 @@ function App() {
     // create styled Error Component
     return <h1>{error.message}</h1>;
   }
-
   if (isSuccess) {
-    return user ? (
-      <AuthenticatedApp user={user} logout={logout} />
-    ) : (
-      <UnauthenticatedApp login={login} register={register} />
+    return (
+      <Router>
+        {user ? (
+          <AuthenticatedApp user={user} logout={logout} />
+        ) : (
+          <UnauthenticatedApp login={login} register={register} />
+        )}
+      </Router>
     );
   }
 }

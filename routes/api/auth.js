@@ -15,20 +15,6 @@ router.get("/", function (req, res) {
 
 // Authenticate user and get token
 router.post("/", function (req, res) {
-  // const user = new User({
-  //   username: req.body.username,
-  //   password: req.body.password,
-  // });
-
-  // req.login(user, function (err) {
-  //   console.log(err);
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(400).send(err);
-  //   } else {
-  //     res.send(req.user);
-  //   }
-  // });
   passport.authenticate("local", function (err, user, info) {
     if (err) {
       return res.status(400).send(err);

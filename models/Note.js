@@ -18,6 +18,10 @@ const noteSchema = new mongoose.Schema({
     type: String,
     default: "#fff",
   },
+  note: {
+    type: Boolean,
+    default: true,
+  },
   archived: {
     type: Boolean,
     default: false,

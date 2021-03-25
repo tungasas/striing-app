@@ -34,7 +34,7 @@ function LoginForm({ onSubmit, type }) {
       {isError ? <ErrorMessage error={error} /> : null}
       <FormGroup>
         <label htmlFor="username">Email</label>
-        <Input id="username" />
+        <Input id="username" type="email" />
       </FormGroup>
       <FormGroup>
         <label htmlFor="password">Password</label>

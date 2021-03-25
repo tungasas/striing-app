@@ -13,6 +13,7 @@ function useSafeDispatch(dispatch) {
   );
 }
 
+/* useAsync */
 const defaultInitialState = { status: "idle", data: null, error: null };
 function useAsync(initialState) {
   const initialStateRef = React.useRef({
@@ -77,4 +78,41 @@ function useAsync(initialState) {
   };
 }
 
-export { useAsync };
+/* useNote */
+const noteDefaultInitialState = { title: "", content: "" };
+
+function noteReducer(state, { type, value }) {
+  switch (type) {
+    case "all":
+      return { ...state, ...value };
+    case "title":
+      return { ...state, title: value };
+    case "content":
+      return { ...state, content: value };
+    case "color":
+      return { ...state, color: value };
+    case "label":
+      return { ...state, label: value };
+    case "archived":
+      return { ...state, archived: value };
+    case "trashed":
+      return { ...state, trashed: value, trashDate: Date.now };
+    default:
+      throw new Error("Please define an appropriate action for Note");
+  }
+}
+function useNote(initialState) {
+  const initialStateRef = React.useRef({
+    ...noteDefaultInitialState,
+    ...initialState,
+  });
+
+  const [note, setNote] = React.useReducer(
+    noteReducer,
+    initialStateRef.current
+  );
+
+  return { note, setNote };
+}
+
+export { useAsync, useNote };

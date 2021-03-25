@@ -27,7 +27,7 @@ function ModalUnderlying({ children, ...props }) {
         transform: "translate(-50%, -50%)",
 
         background: "white",
-        boxShadow: "0 0 40px 5px rgba(0, 0, 0, 0.5)",
+        boxShadow: "0 0 30px 5px rgba(0, 0, 0, 0.3)",
         borderRadius: "5px",
         borderTop: `solid ${colors.primary} 6px`,
       }}

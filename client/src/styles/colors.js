@@ -10,5 +10,5 @@ export const lightPurple = "#f3e9ff";
 export const lightOrage = "#fff5f0";
 export const lightBlue = "#ebf4ff";
 export const gray1 = "#F0F2F5";
-export const gray10 = "#d7dfeb";
+export const gray10 = "#E0e5ed";
 export const danger = "#ef5350";

@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */
+import * as React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -6,6 +7,7 @@ import * as colors from "../styles/colors";
 import * as mq from "../styles/media-queries";
 import { FaSpinner, FaExclamationCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import ContentEditable from "react-contenteditable";
 
 const spin = keyframes({
   "0%": { transform: "rotate(0deg)" },
@@ -39,39 +41,54 @@ const inputFormVariants = {
   },
 };
 
-function InputForm({ variant }) {
-  const label =
-    variant === "title"
-      ? "Title"
-      : variant === "content"
-      ? "Take a note..."
-      : "";
+const InputForm = styled(ContentEditable)(({ variant }) => [
+  css`
+    &:empty::before {
+      content: "${variant === "title"
+        ? "Title"
+        : variant === "content"
+        ? "Take a note..."
+        : ""}";
+      color: gray;
+      cursor: text;
+    }
+  `,
+  inputFormVariants[variant],
+]);
 
-  return (
-    <div
-      contentEditable="true"
-      css={[
-        css`
-          &:empty::before {
-            content: "${label}";
-            color: gray;
-            cursor: text;
-          }
-        `,
-        inputFormVariants[variant],
-      ]}
-    />
-  );
-}
+// function InputForm({ variant, html, ...props }) {
+//   const label =
+//     variant === "title"
+//       ? "Title"
+//       : variant === "content"
+//       ? "Take a note..."
+//       : "";
 
-// styled.input(
-//   {
-//     background: "transparent",
-//     border: "none",
-//     outline: "none",
-//   },
-//   ({ variant = "content" }) => inputFormVariants[variant]
-// );
+//   return (
+//     <ContentEditable
+//       html={html}
+//       onPaste={(event) => {
+//         event.preventDefault();
+//         document.execCommand(
+//           "inserttext",
+//           false,
+//           event.clipboardData.getData("text/plain")
+//         );
+//       }}
+//       css={[
+//         css`
+//           &:empty::before {
+//             content: "${label}";
+//             color: gray;
+//             cursor: text;
+//           }
+//         `,
+//         inputFormVariants[variant],
+//       ]}
+//       {...props}
+//     />
+//   );
+// }
 
 const FormGroup = styled.div({
   display: "flex",
@@ -104,7 +121,11 @@ const buttonVariants = {
     color: colors.title,
     fontSize: "16px",
     "&:hover": {
-      background: colors.gray1,
+      backgroundColor: colors.gray1,
+    },
+    "&:focus": {
+      backgroundColor: colors.gray10,
+      outline: "none",
     },
   },
 };
@@ -171,9 +192,20 @@ const RouterLink = styled(Link)(
   ({ variant = "homeNavLink" }) => linkVariants[variant]
 );
 
-function ErrorMessage({ error, ...props }) {
+function ErrorMessage({ error, type = "block", ...props }) {
+  const displayType = {
+    inline: "inline",
+    block: "block",
+  };
+
   return (
-    <div css={{ color: colors.danger, marginBottom: "5px" }}>
+    <div
+      css={{
+        color: colors.danger,
+        marginBottom: "5px",
+        display: displayType[type],
+      }}
+    >
       <span>{FaExclamationCircle} </span> {error.message || error}
     </div>
   );

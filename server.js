@@ -21,7 +21,7 @@ app.use(express.json());
 
 mongoose
   .connect(
-    `mongodb+srv://tung:${process.env.DBPASS}@cluster0.ml0wd.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`,
+    `mongodb+srv://admin-tung:${process.env.DBPASS}@cluster0.ml0wd.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`,
     { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Database Connected"))

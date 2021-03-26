@@ -16,7 +16,7 @@ pids
 /coverage
 
 # production
-/build
+client/build
 
 # nyc test coverage
 .nyc_output

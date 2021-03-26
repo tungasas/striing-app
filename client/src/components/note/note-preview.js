@@ -47,7 +47,7 @@ function NotePreview({ title, content, transform, setNoteDimensions, index }) {
           borderRadius: "10px",
           background: "white",
           '&:hover': {
-          boxShadow: "0 0 2px 1px rgba(0, 0, 0, 0.1)"
+          boxShadow: "0 0 2px 2px rgba(0, 0, 0, 0.1)"
         }
         }}
       >

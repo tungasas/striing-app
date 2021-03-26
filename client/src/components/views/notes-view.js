@@ -18,6 +18,7 @@ function NotesView({ runAsync, data }) {
   const colHeights = React.useRef([]);
   const noteDimensions = React.useRef([]);
   const [firstRender, setFirstRender] = React.useState(true);
+  const resizeTimer = React.useRef();
 
   const setNoteDimensions = React.useCallback(
     (value, index) => {
@@ -67,18 +68,21 @@ function NotesView({ runAsync, data }) {
     ).fill(0);
   }, []);
 
-  // const handleResize = React.useCallback(() => {
-  //   colHeights.current = Array(
-  //     Math.floor(viewRef.current.offsetWidth / 256)
-  //   ).fill(0);
-  //   noteDimensions.current = [];
-  //   setFirstRender(true);
-  // }, []);
+  const handleResize = React.useCallback(() => {
+    clearTimeout(resizeTimer.current);
+    resizeTimer.current = setTimeout(() => {
+      const colNumber = Math.floor((document.documentElement.clientWidth -240) / 256)
+      if(colNumber === colHeights.current.length) return;
+      colHeights.current = Array(colNumber).fill(0);
+      noteDimensions.current = [];
+      setFirstRender(true)
+    }, 250);
+  },[])
 
-  // React.useEffect(() => {
-  //   window.addEventListener("resize", handleResize);
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, [handleResize]);
+  React.useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
 
   React.useEffect(() => {
     runAsync(client("/api/notes/", { data: { note: true } }));

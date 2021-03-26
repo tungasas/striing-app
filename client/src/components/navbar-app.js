@@ -11,6 +11,7 @@ function NavbarApp({ logout, isLoading, isError, error }) {
       <div
         css={{
           position: "fixed",
+          zIndex: '40',
           top: "0",
           right: "0",
           width: "calc(100% - 240px)",

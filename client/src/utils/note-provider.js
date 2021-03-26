@@ -8,4 +8,4 @@ function createNote(note) {
   return client("/api/notes/create", { data: note });
 }
 
-export { createNote };
+export { getAllNotes, createNote };

@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import * as colors from "../../styles/colors";
 import { useNote } from "../../utils/hooks";
 import * as noteAPI from "../../utils/note-provider";
-import ContentEditable from "react-contenteditable";
 
 const NoteContainerVariants = {
   noteForm: {

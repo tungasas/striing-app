@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import * as React from "react";
 import styled from "@emotion/styled";
-import { InputForm } from "../lib";
 
 const NotePreviewTitle = styled.div({
   padding: "12px 16px 0",
@@ -39,6 +38,7 @@ function NotePreview({ title, content, transform, setNoteDimensions, index }) {
         margin: "16px",
         position: "absolute",
         transform: `translate(${transform.x}px, ${transform.y}px)`,
+        transition: 'transform 0.25s'
       }}
     >
       <div
@@ -46,6 +46,9 @@ function NotePreview({ title, content, transform, setNoteDimensions, index }) {
           border: "1px solid #E0e5ed",
           borderRadius: "10px",
           background: "white",
+          '&:hover': {
+          boxShadow: "0 0 2px 1px rgba(0, 0, 0, 0.1)"
+        }
         }}
       >
         <div>

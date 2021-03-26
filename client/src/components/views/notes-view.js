@@ -4,8 +4,16 @@ import { client } from "../../utils/api-client";
 import NoteForm from "../note/note-form";
 import NotePreview from "../note/note-preview";
 
+function noteReducer(state, data) {
+  if (Array.isArray(data)) {
+    return data;
+  } else {
+    return [data, ...state];
+  }
+}
+
 function NotesView({ runAsync, data }) {
-  const [notes, setNotes] = React.useState([]);
+  const [notes, setNotes] = React.useReducer(noteReducer, []);
   const viewRef = React.useRef();
   const colHeights = React.useRef([]);
   const noteDimensions = React.useRef([]);
@@ -43,11 +51,7 @@ function NotesView({ runAsync, data }) {
 
   React.useEffect(() => {
     if (data) {
-      if (Array.isArray(data)) {
-        setNotes(data);
-      } else {
-        setNotes([...notes, data]);
-      }
+      setNotes(data)
 
       noteDimensions.current = [];
       colHeights.current = Array(

@@ -32,7 +32,10 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/notes", require("./routes/api/notes"));
 
-const PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 5000;
+}
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

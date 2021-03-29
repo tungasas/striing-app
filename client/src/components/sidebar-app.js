@@ -1,16 +1,20 @@
 /** @jsxImportSource @emotion/react */
 import * as React from "react";
 import styled from "@emotion/styled";
-import { NavLink } from "react-router-dom";
+import { css } from "@emotion/react";
 import Logo from "./logo";
 import * as colors from "../styles/colors";
+import * as mq from "../styles/media-queries";
+import { BiNotepad, BiArchiveIn, BiTrash } from "react-icons/bi";
+
+import { NavLink } from "react-router-dom";
 
 const Sidebar = styled.div`
-  height: 100%; /* Full-height: remove this if you want "auto" height */
-  width: 240px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 50; /* Stay on top */
-  top: 0; /* Stay at the top */
+  height: 100%;
+  width: 240px;
+  position: fixed;
+  z-index: 50;
+  top: 0;
   left: 0;
   background: radial-gradient(
     circle,
@@ -22,26 +26,51 @@ const Sidebar = styled.div`
   );
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
+
+  ${"" /* ${mq.small} {
+    width: 80px;
+  } */}
 `;
 
-function RouterLink({ ...props }) {
+const iconStyles = {
+  width: "25px",
+  height: "25px",
+  margin: "8px 12px",
+};
+
+function RouterLink({ name, ...props }) {
   return (
     <NavLink
-      css={{
-        padding: "10px 15px",
-        textDecoration: "none",
-        fontSize: "18px",
-        backgroundColor: "none",
-        color: "#8295B0",
-        display: "block",
-        margin: "40px 40px",
-        borderRadius: "6px",
-        fontWeight: "700",
-        border: "solid 2px transparent",
-        "&:hover": {
-          backgroundColor: colors.gray10,
+      css={[
+        {
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          fontSize: "18px",
+          backgroundColor: "none",
+          color: "#8295B0",
+          margin: "40px 40px",
+          borderRadius: "6px",
+          fontWeight: "700",
+          border: "solid 2px transparent",
+          "&:hover": {
+            backgroundColor: colors.gray10,
+          },
         },
-      }}
+        css`
+          &:after {
+            content: "${name}";
+          }
+          ${
+            "" /* ${mq.small} {
+            margin: 40px 15px;
+            &:after {
+              content: "";
+            }
+          } */
+          }
+        `,
+      ]}
       activeStyle={{
         backgroundColor: "white",
         color: "rgba(59, 104, 255, 0.9)",
@@ -63,9 +92,15 @@ function SidebarApp() {
         <Logo />
       </div>
       <div>
-        <RouterLink to="/notes">Notes</RouterLink>
-        <RouterLink to="/archived">Archived</RouterLink>
-        <RouterLink to="/trash">Trash bin</RouterLink>
+        <RouterLink to="/notes" name="Notes">
+          <BiNotepad css={iconStyles} />
+        </RouterLink>
+        <RouterLink to="/archived" name="Archived">
+          <BiArchiveIn css={iconStyles} />
+        </RouterLink>
+        <RouterLink to="/trash" name="Trash bin">
+          <BiTrash css={iconStyles} />
+        </RouterLink>
       </div>
     </Sidebar>
   );

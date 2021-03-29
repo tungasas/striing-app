@@ -38,7 +38,7 @@ function NotePreview({ title, content, transform, setNoteDimensions, index }) {
         margin: "16px",
         position: "absolute",
         transform: `translate(${transform.x}px, ${transform.y}px)`,
-        transition: 'transform 0.25s'
+        transition: "transform 0.25s",
       }}
     >
       <div
@@ -46,9 +46,9 @@ function NotePreview({ title, content, transform, setNoteDimensions, index }) {
           border: "1px solid #E0e5ed",
           borderRadius: "10px",
           background: "white",
-          '&:hover': {
-          boxShadow: "0 0 2px 2px rgba(0, 0, 0, 0.1)"
-        }
+          "&:hover": {
+            boxShadow: "0 0 2px 2px rgba(0, 0, 0, 0.1)",
+          },
         }}
       >
         <div>

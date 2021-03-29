@@ -1,9 +1,10 @@
 import * as React from "react";
-import AuthenticatedApp from "./authenticated-app";
-import UnauthenticatedApp from "./unauthenticated-app";
 import { useAsync } from "./utils/hooks";
 import * as auth from "./utils/auth-provider";
 import { BrowserRouter as Router } from "react-router-dom";
+
+const AuthenticatedApp = React.lazy(() => import("./authenticated-app"));
+const UnauthenticatedApp = React.lazy(() => import("./unauthenticated-app"));
 
 function App() {
   const {
@@ -48,11 +49,13 @@ function App() {
   if (isSuccess) {
     return (
       <Router>
-        {user ? (
-          <AuthenticatedApp user={user} logout={logout} />
-        ) : (
-          <UnauthenticatedApp login={login} register={register} />
-        )}
+        <React.Suspense fallback={<h1>Loading</h1>}>
+          {user ? (
+            <AuthenticatedApp user={user} logout={logout} />
+          ) : (
+            <UnauthenticatedApp login={login} register={register} />
+          )}
+        </React.Suspense>
       </Router>
     );
   }

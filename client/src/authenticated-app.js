@@ -24,6 +24,8 @@ function AppRoutes({ runAsync, data }) {
   );
 }
 
+export const SidebarContext = React.createContext();
+
 function AuthenticatedApp({ user, logout }) {
   const { data, isLoading, isError, error, run } = useAsync();
   const navbarProps = { logout, isLoading, isError, error };
@@ -32,7 +34,6 @@ function AuthenticatedApp({ user, logout }) {
     <Router>
       <div css={{ display: "flex" }}>
         <div>
-          <div css={{ minWidth: "240px" }} />
           <SidebarApp />
         </div>
         <div css={{ width: "100%" }}>

@@ -52,7 +52,7 @@ function NotesView({ runAsync, data }) {
 
   React.useEffect(() => {
     if (data) {
-      setNotes(data)
+      setNotes(data);
 
       noteDimensions.current = [];
       colHeights.current = Array(
@@ -71,13 +71,16 @@ function NotesView({ runAsync, data }) {
   const handleResize = React.useCallback(() => {
     clearTimeout(resizeTimer.current);
     resizeTimer.current = setTimeout(() => {
-      const colNumber = Math.floor((document.documentElement.clientWidth -240) / 256)
-      if(colNumber === colHeights.current.length) return;
+      const screenWidth = document.documentElement.clientWidth;
+      const colNumber = Math.floor(
+        (screenWidth - (screenWidth < 768 ? 80 : 240)) / 256
+      );
+      if (colNumber === colHeights.current.length) return;
       colHeights.current = Array(colNumber).fill(0);
       noteDimensions.current = [];
-      setFirstRender(true)
+      setFirstRender(true);
     }, 250);
-  },[])
+  }, []);
 
   React.useEffect(() => {
     window.addEventListener("resize", handleResize);

@@ -2,6 +2,7 @@
 import * as React from "react";
 import { RouterLink } from "./lib";
 import * as colors from "../styles/colors";
+import * as mq from "../styles/media-queries";
 import { Spinner, ErrorMessage } from "./lib";
 
 function NavbarApp({ logout, isLoading, isError, error }) {
@@ -11,7 +12,7 @@ function NavbarApp({ logout, isLoading, isError, error }) {
       <div
         css={{
           position: "fixed",
-          zIndex: '40',
+          zIndex: "40",
           top: "0",
           right: "0",
           width: "calc(100% - 240px)",
@@ -22,6 +23,9 @@ function NavbarApp({ logout, isLoading, isError, error }) {
 
           borderBottom: `1px solid ${colors.gray10}`,
           backgroundColor: colors.base,
+          [mq.small]: {
+            width: "calc(100% - 80px)",
+          },
         }}
       >
         <div css={{ height: "60px" }}></div>

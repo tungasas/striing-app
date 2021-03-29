@@ -27,9 +27,9 @@ const Sidebar = styled.div`
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 
-  ${"" /* ${mq.small} {
+  ${mq.small} {
     width: 80px;
-  } */}
+  }
 `;
 
 const iconStyles = {
@@ -61,13 +61,11 @@ function RouterLink({ name, ...props }) {
           &:after {
             content: "${name}";
           }
-          ${
-            "" /* ${mq.small} {
+          ${mq.small} {
             margin: 40px 15px;
             &:after {
               content: "";
             }
-          } */
           }
         `,
       ]}
@@ -83,26 +81,29 @@ function RouterLink({ name, ...props }) {
 
 function SidebarApp() {
   return (
-    <Sidebar>
-      <div
-        css={{
-          textAlign: "center",
-        }}
-      >
-        <Logo />
-      </div>
-      <div>
-        <RouterLink to="/notes" name="Notes">
-          <BiNotepad css={iconStyles} />
-        </RouterLink>
-        <RouterLink to="/archived" name="Archived">
-          <BiArchiveIn css={iconStyles} />
-        </RouterLink>
-        <RouterLink to="/trash" name="Trash bin">
-          <BiTrash css={iconStyles} />
-        </RouterLink>
-      </div>
-    </Sidebar>
+    <div>
+      <div css={{ width: "240px", [mq.small]: { width: "80px" } }} />
+      <Sidebar>
+        <div
+          css={{
+            textAlign: "center",
+          }}
+        >
+          <Logo />
+        </div>
+        <div>
+          <RouterLink to="/notes" name="Notes">
+            <BiNotepad css={iconStyles} />
+          </RouterLink>
+          <RouterLink to="/archived" name="Archived">
+            <BiArchiveIn css={iconStyles} />
+          </RouterLink>
+          <RouterLink to="/trash" name="Trash bin">
+            <BiTrash css={iconStyles} />
+          </RouterLink>
+        </div>
+      </Sidebar>
+    </div>
   );
 }
 
